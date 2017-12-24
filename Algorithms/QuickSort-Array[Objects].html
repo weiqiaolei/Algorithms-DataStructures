@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        var items = [
+            { id: 3, product: 'Cherry' },
+            { id: 2, product: 'Banana' },
+            { id: 1, product: 'Apple' },
+            { id: 4, product: 'Dates' },
+            { id: 5, product: 'Eggfruit' },
+
+            { id: 7, product: 'GrapeFruit' },
+            { id: 6, product: 'Fig' },
+            { id: 10, product: 'Jackfruit' },
+            { id: 8, product: 'Honeydew Melons' },
+            { id: 9, product: 'Indian Prune' },
+
+            { id: 11, product: 'Kiwi' },
+            { id: 15, product: 'Orange' },
+            { id: 12, product: 'Lime' },
+            { id: 14, product: 'Nectarine' },
+            { id: 13, product: 'Mango' },
+
+            { id: 17, product: 'Quince' },
+            { id: 16, product: 'Peach' },
+            { id: 18, product: 'Raspberries' },
+            { id: 19, product: 'Strawberries' },
+            { id: 20, product: 'Tangerine' },
+
+            { id: 25, product: 'Yellow Passion Fruit' },
+            { id: 21, product: 'Ugni' },
+            { id: 22, product: 'Vanilla Bean' },
+            { id: 23, product: 'Watermelons' },
+            { id: 24, product: 'Xigua' },
+
+            { id: 26, product: 'Zinfandel Grapes' }
+
+        ];
+
+        function quickSort(items, left, right) {
+            var index;
+            if (items.length > 1) {
+                left = typeof left != "number" ? 0 : left;                    //0
+                right = typeof right != "number" ? items.length - 1 : right;  //6
+                console.log(left, right); // 0 6
+
+
+                index = partition(items, left, right);
+                if (left < index - 1) {
+                    quickSort(items, left, index - 1);
+                }
+                if (index < right) {
+                    quickSort(items, index, right);
+                }
+            }
+            return items;
+        }
+
+        function partition(items, left, right) {
+            var pivot = items[Math.floor((right + left) / 2)],
+                i = left,
+                j = right;
+            while (i <= j) {
+                while (items[i].id < pivot.id) {
+                    i++;
+                }
+                while (items[j].id > pivot.id) {
+                    j--;
+                }
+                if (i <= j) {
+                    swap(items, i, j);
+                    i++;
+                    j--;
+                }
+            }
+            return i;
+        }
+
+        function swap(items, firstIndex, secondIndex) {
+            var temp = items[firstIndex];
+            items[firstIndex] = items[secondIndex];
+            items[secondIndex] = temp;
+        }
+
+        var result = quickSort(items);
+        console.log(result);
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        var arr = [
+            { display: 2, price: 42 },
+            { display: 1, price: 35 },
+            { display: 2, price: 22 },
+            { display: 3, price: 10 },
+            { display: 1, price: 55 },
+            { display: 1, price: 44 },
+            { display: 2, price: 66 },
+            { display: 3, price: 33 },
+            { display: 3, price: 31 }
+        ];
+
+        arr.sort(function (a, b) {
+            return a.display - b.display || a.price - b.price;
+        });
+
+        console.log(arr);
+
+
+    </script>
+</body>
+</html>

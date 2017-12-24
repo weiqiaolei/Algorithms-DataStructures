@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+   <script>
+       //https://codepen.io/beaucarnes/pen/VbYGMb?editors=0012
+       //https://www.youtube.com/watch?v=F95z5Wxd9ks
+       //Hash functions matches strings(keys) => HASH FUNCTION => numbers(hashes)
+
+       //(Collision)Hash Function Must be consistent and maps different words to different numbers
+       //1. Handle Collision => Store both+ on same index
+       //2. Upon lookup, iterate through the BUCKET of items to seek the one you are looking for.
+
+       //To find value in bucket
+       //1. Have the key(string)
+       //2. Put key in Hash Function
+       //3. Use Hash to find value in bucket
+
+       /*Hash Table */
+
+
+
+
+
+
+       var hash = (string, max) => {   //HASH FUNCTION, string input, Max = Max Buckets
+           var hash = 0;
+
+           /* Very Simple Hash Function Below:*/
+           for (var i = 0; i < string.length; i++) {
+               hash += string.charCodeAt(i);
+           }
+           return hash % max;
+           /* Hash function above */
+       };
+
+       let HashTable = function () {
+           let storage = [];
+           const storageLimit = 4;   // '4'||'14' Number of buckets
+
+           this.print = function () {  
+               console.log(storage)
+           }
+
+
+           //Adding keyValue to Hash Function
+           this.add = function (key, value) {
+               var index = hash(key, storageLimit);
+               if (storage[index] === undefined) {
+                   storage[index] = [
+                       [key, value]
+                   ];
+               } else {
+                   var inserted = false;
+                   for (var i = 0; i < storage[index].length; i++) {
+                       if (storage[index][i][0] === key) {
+                           storage[index][i][1] = value;
+                           inserted = true;
+                       }
+                   }
+                   if (inserted === false) {
+                       storage[index].push([key, value]);
+                   }
+               }
+           };
+
+           this.remove = function (key) {
+               var index = hash(key, storageLimit);
+               if (storage[index].length === 1 && storage[index][0][0] === key) {
+                   delete storage[index];
+               } else {
+                   for (var i = 0; i < storage[index].length; i++) {
+                       if (storage[index][i][0] === key) {
+                           delete storage[index][i];
+                       }
+                   }
+               }
+           };
+
+           //Look up function for HASH TABLE
+           this.lookup = function (key) {
+               var index = hash(key, storageLimit);
+               if (storage[index] === undefined) {
+                   return undefined;
+               } else {
+                   for (var i = 0; i < storage[index].length; i++) {
+                       if (storage[index][i][0] === key) {
+                           return storage[index][i][1];
+                       }
+                   }
+               }
+           };
+
+       };
+
+       //returns the value of the charCode
+       console.log("a".charCodeAt());//returns 97;
+       console.log("m".charCodeAt());//returns 109;
+       console.log("z".charCodeAt());//returns 122;
+       console.log("A".charCodeAt());//returns 65;
+       console.log("M".charCodeAt());//returns 77;
+       console.log("Z".charCodeAt());//returns 90;
+
+       console.log(hash('Abra', 10));   //(65 % 10 - 1) = 4
+       console.log(hash('Mike', 10));   //(77 % 10 - 1) = 0
+       console.log(hash('Zarya', 10))   //(90 % 10 - 1) = 9
+
+       let ht = new HashTable();
+       ht.add('beau', 'person');
+       ht.add('fido', 'dog');
+       ht.add('rex', 'dinosour');
+       ht.add('tux', 'penguin');
+
+       console.log(ht.lookup('tux'));  //penguin
+       console.log(ht.lookup('beau'));  //person
+
+       ht.print(); //beau & tux = Same bucket[0]
+
+   </script>
+</body>
+</html>
